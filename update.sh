@@ -35,7 +35,8 @@ sort -d -u -o ad ad
 sort -d -u -o ../config/ad_blank.conf ../config/ad_blank.conf
 
 # Allow ad in blank list
-comm -2 -3 ad ../config/ad_blank.conf > ad.tmp
+# comm -2 -3 ad ../config/ad_blank.conf > ad.tmp
+diff --new-line-format="" --unchanged-line-format="" ad ../config/ad_blank.conf > ad.tmp
 rm ad && mv ad.tmp ad
 
 # Export the mini version for gw
@@ -56,9 +57,9 @@ sort -d -u -o gw-mini gw-mini
 awk '{print "address=/"$0"/0.0.0.0"}' ad > ../ad.hosts
 
 # Generate gw.hosts and gw-mini.hosts file for dnsmasq
-awk '{print "server=/"$0"/127.0.0.1#1053"}' gw > ../gw.hosts
+awk '{print "server=/"$0"/127.0.0.1#5053"}' gw > ../gw.hosts
 awk '{print "ipset=/"$0"/gw"}' gw >> ../gw.hosts
-awk '{print "server=/"$0"/127.0.0.1#1053"}' gw-mini > ../gw-mini.hosts
+awk '{print "server=/"$0"/127.0.0.1#5053"}' gw-mini > ../gw-mini.hosts
 awk '{print "ipset=/"$0"/gw"}' gw-mini >> ../gw-mini.hosts
 
 cd ..
