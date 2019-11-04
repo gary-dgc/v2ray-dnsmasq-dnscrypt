@@ -8,6 +8,10 @@ wget -O apnic https://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest
 echo "create cn hash:net family inet hashsize 1024 maxelem 65536" > ../cn.conf
 cat apnic | awk -F\| '/CN\|ipv4/ { printf("add cn %s/%d\n", $4, 32-log($5)/log(2)) }' >> ../cn.conf
 
+# Here put the remote v2ray server ip in cn.conf, let it connect directly
+V2RAY_SVR=212.50.231.43
+echo "add cn $V2RAY_SVR" >> ../cn.conf
+
 wget -O sr.conf https://raw.githubusercontent.com/h2y/Shadowrocket-ADBlock-Rules/master/sr_top500_banlist_ad.conf
 
 # gw
